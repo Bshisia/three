@@ -5,7 +5,16 @@ const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.inner
 
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize( window.innerWidth, window.innerHeight );
-document.body.appendChild( renderer.domElement );
+// Keep a reference to the #info element so we can animate it.
+let infoEl = document.getElementById('info');
+// Insert the canvas before the #info overlay so the overlay remains on top
+if (infoEl) {
+    document.body.insertBefore(renderer.domElement, infoEl);
+} else {
+    document.body.appendChild(renderer.domElement);
+    // try to grab it again in case it was added later
+    infoEl = document.getElementById('info');
+}
 
 const geometry = new THREE.BoxGeometry(1, 1, 1);
 const materials = [
@@ -23,6 +32,14 @@ camera.position.z = 5;
 function animate() {
     cube.rotation.x += 0.01;
     cube.rotation.y += 0.01;
-    renderer.render(scene, camera);
+        // animate the overlay text: gentle bob + subtle opacity pulse
+        if (infoEl) {
+            const t = performance.now() / 1000; // seconds
+            const y = Math.sin(t * 2.0) * 8; // pixels
+            const pulse = 0.8 + 0.2 * Math.sin(t * 3.0);
+            infoEl.style.transform = `translateY(${y}px)`;
+            infoEl.style.opacity = String(pulse);
+        }
+        renderer.render(scene, camera);
 }
 renderer.setAnimationLoop(animate)
