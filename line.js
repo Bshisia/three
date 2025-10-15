@@ -15,13 +15,19 @@ const material = new THREE.LineBasicMaterial( { color: 0xffffff } );
 const points = [];
 points.push( new THREE.Vector3( 0, 0, 0 ) );
 points.push( new THREE.Vector3( 0, 10, 0 ) );
-points.push( new THREE.Vector3( 10, 0, 0 ) );
+points.push( new THREE.Vector3( 35, 0, 0 ) );
 points.push(new THREE.Vector3(0, 0, 0));
 
 const geometry = new THREE.BufferGeometry().setFromPoints( points );
 
 const line = new THREE.Line( geometry, material );
 scene.add( line );
+
+// Add screen borders
+const borderGeometry = new THREE.BoxGeometry( 100, 80, 5 );
+const borderMaterial = new THREE.MeshBasicMaterial( { color: 0x44444, wireframe: true } );
+const border = new THREE.Mesh( borderGeometry, borderMaterial );
+scene.add( border );
 
 function animate() {
     line.rotation.x += 0.01;

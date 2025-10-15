@@ -5,14 +5,12 @@ const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.inner
 
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize( window.innerWidth, window.innerHeight );
-// Keep a reference to the #info element so we can animate it.
+
 let infoEl = document.getElementById('info');
-// Insert the canvas before the #info overlay so the overlay remains on top
 if (infoEl) {
     document.body.insertBefore(renderer.domElement, infoEl);
 } else {
     document.body.appendChild(renderer.domElement);
-    // try to grab it again in case it was added later
     infoEl = document.getElementById('info');
 }
 
@@ -43,3 +41,4 @@ function animate() {
         renderer.render(scene, camera);
 }
 renderer.setAnimationLoop(animate)
+
