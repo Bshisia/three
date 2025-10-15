@@ -19,3 +19,6 @@ points.push( new THREE.Vector3( 10, 0, 0 ) );
 
 const geometry = new THREE.BufferGeometry().setFromPoints( points );
 
+const line = new THREE.Line( geometry, material );
+scene.add( line );
+renderer.render( scene, camera );
