@@ -9,3 +9,5 @@ camera.position.set( 0, 0, 100 );
 camera.lookAt( 0, 0, 0 );
 
 const scene = new THREE.Scene();
+
+const material = new THREE.LineBasicMaterial( { color: 0x0000ff } );
